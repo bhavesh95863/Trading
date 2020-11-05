@@ -33,7 +33,7 @@ frappe.ui.form.on('Purchase Invoice Item', {
 		if (doc.item_code){
 		    frappe.call({
 		        method:"trading.api.get_last_transaction",
-		        args:{'c_doctype':doc.doctype,'p_doctype':frm.doc.doctype,'item':doc.item_code,'parent':doc.parent},
+		        args:{'c_doctype':doc.doctype,'p_doctype':frm.doc.doctype,'item':doc.item_code,'parent':doc.parent,'party':frm.doc.supplier},
 		        callback:function(r){
 		            console.log(r)
 		            if (r.message){

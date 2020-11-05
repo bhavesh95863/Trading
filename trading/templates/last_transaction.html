@@ -12,7 +12,7 @@
 			<tbody>
 				{% for row in data -%}
 				<tr>
-					<td style="border: 1px solid #d1d8dd; text-align: left; padding: 5px;">{{ frappe.utils.get_link_to_form(doctype, row.parent) }}</td>
+					<td style="border: 1px solid #d1d8dd; text-align: left; padding: 5px;">{{ frappe.utils.get_link_to_form(row.parenttype, row.parent) }}</td>
 					<td style="border: 1px solid #d1d8dd; text-align: left; padding: 5px;">{{ row.qty }}</td>
 					<td style="border: 1px solid #d1d8dd; text-align: left; padding: 5px;">{{ row.rate }}</td>
 				</tr>
