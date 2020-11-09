@@ -9,10 +9,8 @@ from erpnext.stock.utils import add_additional_uom_columns
 from erpnext.stock.report.stock_ledger.stock_ledger import get_item_group_condition
 
 from erpnext.stock.report.stock_ageing.stock_ageing import get_fifo_queue, get_average_age
-
+import json
 from six import iteritems
-from itertools import groupby
-import collections
 
 
 def execute(filters=None):
@@ -71,14 +69,12 @@ def get_columns(filters):
 	return columns
 
 def get_item_group_wise_balance(data):
-	import json
+	
 	item_group_details = {}
 	for row in data:
 		old_balance_item_group_wise = item_group_details.get(row.get('item_group'))
-		frappe.errprint(old_balance_item_group_wise)
 		old_bal = old_qty = 0
 		if old_balance_item_group_wise:
-			frappe.errprint('old')
 			old_bal = old_balance_item_group_wise.get('bal_val')
 			old_qty = old_balance_item_group_wise.get('bal_qty')
 		group_row = dict(
@@ -86,15 +82,11 @@ def get_item_group_wise_balance(data):
 			bal_qty = row.get('bal_qty') + old_qty,
 			bal_val = row.get('bal_val') + old_bal
 		)
-		frappe.errprint(group_row)
 		item_group_details.setdefault(row.get('item_group'),frappe._dict())
 		item_group_details[row.get('item_group')] = group_row
-		frappe.errprint(item_group_details)
-	# frappe.errprint(item_group_details)
 	data = []
 	for value in item_group_details.values():
 		data.append(value)
-	frappe.errprint(data)
 	return data
 
 
